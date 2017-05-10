@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<proxy name="CustomerPoxToSoapDomain" startOnLoad="true" trace="disable"
+  transports="https http" xmlns="http://ws.apache.org/ns/synapse">
+  <target>
+    <inSequence onError="faultXML">
+      <!-- Set the content and message Types so the engine knows to transform 
+				from JSON to XML -->
+      <property description="Set Message Type" name="messageType"
+        scope="axis2" type="STRING" value="application/soap+xml"/>
+      <property description="Set Content Type" name="ContentType"
+        scope="axis2" type="STRING" value="application/soap+xml"/>
+      <property description="Set CONTENT_TYPE" name="CONTENT_TYPE"
+        scope="axis2" type="STRING" value="application/soap+xml"/>
+      <!-- Set to post method -->
+      <property description="Set Pass Through to POST"
+        name="HTTP_METHOD" scope="axis2" type="STRING" value="POST"/>
+      <!-- Log payload to console -->
+      <log level="custom">
+        <property expression="$body" name="body"/>
+      </log>
+      <send>
+        <endpoint name="Soap 1.1 Endpoint">
+          <address format="soap11" trace="disable" uri="http://localhost:8080/GetCustomer"/>
+          <property name="Accept" scope="transport" value="application/soap+xml"/>
+          <property name="Content-Type" scope="transport" value="application/soap+xml"/>
+        </endpoint>
+      </send>
+    </inSequence>
+    <outSequence onError="faultXML">
+      <log level="full">
+        <property expression="$body" name="body"/>
+      </log>
+      <property name="messageType" scope="axis2" type="STRING" value="application/xml"/>
+      <property name="ContentType" scope="axis2" type="STRING" value="application/xml"/>
+      <property name="CONTENT_TYPE" scope="axis2" type="STRING" value="application/xml"/>
+      <send/>
+    </outSequence>
+    <faultSequence onError="faultXML"/>
+  </target>
+</proxy>

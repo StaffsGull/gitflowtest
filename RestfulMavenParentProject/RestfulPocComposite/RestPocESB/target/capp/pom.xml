@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>au.com.raa.poc.RestPocESB</groupId>
+  <artifactId>RestPocESB_module</artifactId>
+  <version>1.0.0</version>
+  <packaging>pom</packaging>
+  <name>RestPocESB_module</name>
+  <description>RestPocESB_module</description>
+  <modules>
+    <module>artifacts\proxy-service\CustomerRestJsonToXMLProxyService</module>
+    <module>artifacts\sequence\fault</module>
+    <module>artifacts\proxy-service\JsontoSoapPoc</module>
+  </modules>
+</project>

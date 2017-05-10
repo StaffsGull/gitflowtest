@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sequence name="faultXML" trace="disable" xmlns="http://ws.apache.org/ns/synapse">
+  <log level="full">
+    <property name="text" value="An unexpected error occured"/>
+    <property expression="get-property('ERROR_CODE')" name="code"/>
+    <property expression="get-property('ERROR_MESSAGE')" name="message"/>
+    <property expression="get-property('ERROR_DETAIL')" name="detail"/>
+    <property expression="get-property('ERROR_EXCEPTION')" name="exception"/>
+  </log>
+  <makefault version="pox">
+    <reason expression="get-property('ERROR_MESSAGE')"/>
+  </makefault>
+  <payloadFactory media-type="xml">
+    <format>
+      <Error>
+        <ErrorCode>$1</ErrorCode>
+        <ErrorDesc>$2</ErrorDesc>
+        <ErrorType>System Error</ErrorType>
+      </Error>
+    </format>
+    <args>
+      <arg evaluator="xml" expression="get-property('ERROR_CODE')"/>
+      <arg evaluator="xml" expression="get-property('ERROR_MESSAGE')"/>
+    </args>
+  </payloadFactory>
+  <property name="HTTP_SC" scope="axis2" type="STRING" value="500"/>
+  <property name="messageType" scope="axis2" type="STRING" value="application/xml"/>
+  <property name="ContentType" scope="axis2" type="STRING" value="application/xml"/>
+  <property name="CONTENT_TYPE" scope="axis2" type="STRING" value="application/xml"/>
+  <send/>
+</sequence>

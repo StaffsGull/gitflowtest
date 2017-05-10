@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<proxy name="JsontoSoapPoc" startOnLoad="true" trace="disable"
+  transports="https http" xmlns="http://ws.apache.org/ns/synapse">
+  <target>
+    <inSequence onError="fault">
+      <!-- Set the content and message Types so the engine knows to transform from JSON to XML -->
+      <property description="Set Message Type" name="messageType"
+        scope="axis2" type="STRING" value="application/xml"/>
+      <property description="Set Content Type" name="ContentType"
+        scope="axis2" type="STRING" value="application/xml"/>
+      <property description="Set CONTENT_TYPE" name="CONTENT_TYPE"
+        scope="axis2" type="STRING" value="application/xml"/>
+      <!-- Specifically, log the json payload -->
+      <log description="Json Payload Logging" level="custom">
+        <property expression="json-eval($.)" name="JSON-Payload"/>
+      </log>
+      <!-- Set to post method -->
+      <property description="Set Pass Through to POST"
+        name="HTTP_METHOD" scope="axis2" type="STRING" value="POST"/>
+      <!-- Remove JsonObject tag -->
+      <enrich description="Remove jsonObject">
+        <source clone="true" xpath="$body//jsonObject//customer"/>
+        <target type="body"/>
+      </enrich>
+      <!-- Transform calling_object to canonical here -->
+      <xslt description="TransformToCanonical" key="conf:/transforms/POC_Customer_to_canon_SOAP.xslt"/>
+      <!-- Log payload to console -->
+      <log level="custom">
+        <property expression="$body" name="body"/>
+      </log>
+      <send>
+        <endpoint name="Soap 1.1 Endpoint">
+          <address format="pox" trace="disable" uri="http://TOSHIBA-CHX-ROD:8280/services/CustomerPoxToSoapDomain"/>
+          <property name="Accept" scope="transport" value="application/xml"/>
+          <property name="Content-Type" scope="transport" value="application/xml"/>
+        </endpoint>
+      </send>
+    </inSequence>
+    <outSequence onError="fault">
+      <property description="CheckErrorExists"
+        expression="//*[local-name()='ErrorCode']"
+        name="CheckErrorExists" scope="default" type="STRING"/>
+      <switch source="get-property('CheckErrorExists')">
+        <case regex="[a-zA-Z0-9]+">
+          <log level="custom">
+            <property name="message" value="Error Response Found"/>
+          </log>
+          <property description="message Type" name="ContentType"
+            scope="axis2" type="STRING" value="application/json"/>
+          <property name="CONTENT_TYPE" scope="axis2" type="STRING" value="application/json"/>
+          <property name="messageType" scope="axis2" type="STRING" value="application/json"/>
+          <send/>
+        </case>
+        <default>
+          <log level="custom">
+            <property name="message" value="Normal Response"/>
+            <property expression="$body" name="body"/>
+          </log>
+          <xslt description="TransformToRequester" key="conf:/transforms/POC_Customer_from_canon_SOAP.xslt"/>
+          <log level="full">
+            <property expression="$body" name="body"/>
+          </log>
+          <property name="ContentType" scope="axis2" type="STRING" value="application/json"/>
+          <property name="CONTENT_TYPE" scope="axis2" type="STRING" value="application/json"/>
+          <property name="messageType" scope="axis2" type="STRING" value="application/json"/>
+          <send/>
+        </default>
+      </switch>
+    </outSequence>
+    <faultSequence onError="fault"/>
+  </target>
+</proxy>

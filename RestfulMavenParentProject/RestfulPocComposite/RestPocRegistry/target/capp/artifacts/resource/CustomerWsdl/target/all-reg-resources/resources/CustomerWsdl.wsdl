@@ -1,0 +1,52 @@
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy"
+	xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://raa.com.au/"
+	xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract"
+	xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata"
+	xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy"
+	xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/"
+	xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:cus="http://au.com.raa.poc.customer.canon"
+	name="InboundCall" targetNamespace="http://raa.com.au/">
+	<wsdl:types>
+		<xsd:schema>
+			<xsd:import namespace="http://au.com.raa.poc.customer.canon"
+				schemaLocation="customerObject.xsd" />
+		</xsd:schema>
+	</wsdl:types>
+	<wsdl:message name="GetCustomerRequest">
+		<wsdl:part name="parameters" element="cus:GetCustomerRequest" />
+	</wsdl:message>
+	<wsdl:message name="GetCustomerResponse">
+		<wsdl:part name="parameters" element="cus:GetCustomerResponse" />
+	</wsdl:message>
+	<wsdl:portType name="GetCustomerService">
+		<wsdl:operation name="GetCustomer">
+			<wsdl:input message="tns:GetCustomerRequest"
+				wsaw:Action="http://au.com.raa.poc.customer.canon/Customer/GetCustomer/v1" />
+			<wsdl:output message="tns:GetCustomerResponse"
+				wsaw:Action="http://au.com.raa.poc.customer.canon/Customer/GetCustomer/v1" />
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="GetCustomerServiceSOAP11Binding" type="tns:GetCustomerService">
+		<soap:binding style="document"
+			transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsdl:operation name="GetCustomer">
+			<soap:operation soapAction="http://au.com.raa.poc.customer.canon/Customer/GetCustomer/v1"
+				style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="GetCustomerPorts">
+		<wsdl:port name="GetCustomerServiceSOAP11Port_v1" binding="tns:GetCustomerServiceSOAP11Binding">
+			<soap:address location="http://localhost:8080/GetCustomer" />
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>
+

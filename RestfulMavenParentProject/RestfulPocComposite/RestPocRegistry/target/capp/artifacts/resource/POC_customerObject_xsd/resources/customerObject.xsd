@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+   <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://au.com.raa.poc.customer.canon" targetNamespace="http://au.com.raa.poc.customer.canon" xmlns:cus="http://au.com.raa.poc.customer.canon" elementFormDefault="qualified" attributeFormDefault="unqualified">
+         <xs:element name="customerObject">
+               <xs:complexType>
+                     <xs:sequence>
+                           <xs:element name="firstname" type="xs:string"  minOccurs="1" maxOccurs="1"></xs:element>
+                           <xs:element name="id" type="xs:int" minOccurs="1" maxOccurs="1"></xs:element>
+                           <xs:element name="lastname" type="xs:string" minOccurs="1" maxOccurs="1"></xs:element>
+                           <xs:element name="policies" minOccurs="1" maxOccurs="1">
+                                 <xs:complexType>
+                                       <xs:sequence>
+                                             <xs:element name="policy" minOccurs="1" maxOccurs="unbounded">
+                                                   <xs:complexType>
+                                                         <xs:sequence>
+                                                               <xs:element name="policyid" type="xs:int" minOccurs="1" maxOccurs="1"></xs:element>
+                                                               <xs:element name="policyname" type="xs:string" minOccurs="1" maxOccurs="1"></xs:element>
+                                                         </xs:sequence>
+                                                   </xs:complexType>
+                                             </xs:element>
+                                       </xs:sequence>
+                                 </xs:complexType>
+                           </xs:element>
+                     </xs:sequence>
+               </xs:complexType>
+         </xs:element>
+         <xs:element name="GetCustomerRequest">
+            <xs:complexType>
+	            <xs:sequence>
+	               <xs:element maxOccurs="1" ref="customerObject"/>
+	            </xs:sequence>
+            </xs:complexType>
+         </xs:element>
+         <xs:element name="GetCustomerResponse">
+           <xs:complexType>
+	            <xs:sequence>
+	               <xs:element maxOccurs="1" ref="customerObject"/>
+	            </xs:sequence>
+            </xs:complexType>
+         </xs:element>
+   </xs:schema>

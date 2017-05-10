@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?><artifacts>
+    <artifact name="POC_customerObject_xsd" groupId="au.com.raa.poc.RestPocRegistry.resource" version="1.0.0" type="registry/resource" serverRole="GovernanceRegistry">
+        <item>
+            <file>config/schemas/customerObject.xsd</file>
+            <path>/_system/config/schemas</path>
+            <mediaType>application/x-xsd+xml</mediaType>
+        </item>
+    </artifact>
+    <artifact name="POC_Customer_to_canon" groupId="au.com.raa.poc.RestPocRegistry.resource" version="1.0.0" type="registry/resource" serverRole="GovernanceRegistry">
+        <item>
+            <file>config/transforms/POC_Customer_to_canon.xslt</file>
+            <path>/_system/config/transforms</path>
+            <mediaType>application/xslt+xml</mediaType>
+        </item>
+    </artifact>
+    <artifact name="CustomerWsdl" groupId="au.com.raa.poc.RestPocRegistry.resource" version="1.0.0" type="registry/resource" serverRole="GovernanceRegistry">
+        <item>
+            <file>config/wsdls/CustomerWsdl.wsdl</file>
+            <path>/_system/config/wsdls</path>
+            <mediaType>application/wsdl+xml</mediaType>
+        </item>
+    </artifact>
+    <artifact name="POC_Customer_to_canon_SOAP" groupId="au.com.raa.poc.RestPocRegistry.resource" version="1.0.0" type="registry/resource" serverRole="GovernanceRegistry">
+        <item>
+            <file>config/transforms/POC_Customer_to_canon_SOAP.xslt</file>
+            <path>/_system/config/transforms</path>
+            <mediaType>application/xslt+xml</mediaType>
+        </item>
+    </artifact>
+    <artifact name="POC_Customer_from_canon_SOAP" groupId="au.com.raa.poc.RestPocRegistry.resource" version="1.0.0" type="registry/resource" serverRole="GovernanceRegistry">
+        <item>
+            <file>config/transforms/POC_Customer_from_canon_SOAP.xslt</file>
+            <path>/_system/config/transforms</path>
+            <mediaType>application/xslt+xml</mediaType>
+        </item>
+    </artifact>
+</artifacts>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>au.com.raa.poc.RestPocRegistry</groupId>
+  <artifactId>RestPocRegistry_module</artifactId>
+  <version>1.0.0</version>
+  <packaging>pom</packaging>
+  <name>RestPocRegistry_module</name>
+  <description>RestPocRegistry_module</description>
+  <modules>
+    <module>artifacts\resource\POC_customerObject_xsd</module>
+    <module>artifacts\resource\POC_Customer_to_canon</module>
+    <module>artifacts\resource\CustomerWsdl</module>
+    <module>artifacts\resource\POC_Customer_to_canon_SOAP</module>
+    <module>artifacts\resource\POC_Customer_from_canon_SOAP</module>
+  </modules>
+</project>

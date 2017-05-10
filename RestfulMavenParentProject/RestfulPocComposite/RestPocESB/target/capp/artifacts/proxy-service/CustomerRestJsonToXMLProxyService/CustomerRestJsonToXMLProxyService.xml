@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<proxy name="CustomerRestJsonToXMLProxyService" startOnLoad="true"
+  trace="disable" transports="https http" xmlns="http://ws.apache.org/ns/synapse">
+  <target>
+    <inSequence onError="fault">
+      <property name="messageType" scope="axis2" type="STRING" value="application/xml"/>
+      <property name="ContentType" scope="axis2" type="STRING" value="application/xml"/>
+      <property name="CONTENT_TYPE" scope="axis2" type="STRING" value="application/xml"/>
+      <switch description="Get or Post " source="$axis2:HTTP_METHOD">
+        <case regex="GET">
+          <property name="HTTP_METHOD" scope="axis2" type="STRING" value="GET"/>
+        </case>
+        <case regex="POST">
+          <log description="Json Payload Logging">
+            <property expression="json-eval($.)" name="JSON-Payload"/>
+          </log>
+          <property description="Set Pass Through to POST"
+            name="HTTP_METHOD" scope="axis2" type="STRING" value="POST"/>
+        </case>
+        <default/>
+      </switch>
+      <log level="full"/>
+      <enrich>
+        <source clone="true" xpath="$body//jsonObject//customer"/>
+        <target property="calling_object" type="property"/>
+      </enrich>
+      <!-- Transform calling_object to canonical here -->
+      <enrich>
+        <source clone="true" property="calling_object" type="property"/>
+        <target type="body"/>
+      </enrich>
+      <log level="custom">
+        <property expression="get-property('calling_object')" name="calling_object"/>
+        <property expression="$body" name="body"/>
+      </log>
+      <xslt description="TransformToCanonical" key="conf:/transforms/POC_Customer_to_canon.xslt"/>
+      <send description="xml message">
+        <endpoint>
+          <address format="rest" trace="disable" uri="http://localhost:8284/test/customer"/>
+          <property name="Accept" scope="transport" value="application/xml"/>
+          <property name="Content-Type" scope="transport" value="application/xml"/>
+        </endpoint>
+      </send>
+    </inSequence>
+    <outSequence onError="fault">
+      <log level="full">
+        <property expression="$body" name="body"/>
+      </log>
+      <property name="messageType" scope="axis2" type="STRING" value="application/json"/>
+      <send/>
+    </outSequence>
+    <faultSequence onError="fault"/>
+  </target>
+</proxy>

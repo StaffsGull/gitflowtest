@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<endpoint name="ExternalEndpoint" xmlns="http://ws.apache.org/ns/synapse">
+  <address format="soap11" trace="disable" uri="http://localhost:8080/GetCustomer"/>
+  <property name="Accept" scope="transport" value="application/soap+xml"/>
+  <property name="Content-Type" scope="transport" value="application/soap+xml"/>
+</endpoint>

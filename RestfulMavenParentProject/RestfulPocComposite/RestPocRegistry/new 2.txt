@@ -1,0 +1,2 @@
+keytool -importcert -file mycert.cer -keystore C:/Users/Rodhi/Downloads/wso2esb-4.9.0/repository/resources/security/client-truststore.jks -alias "MyAlias"
+password is wso2carbon

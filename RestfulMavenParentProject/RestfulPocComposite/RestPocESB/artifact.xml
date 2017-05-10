@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?><artifacts>
+    <artifact name="CustomerRestJsonToXMLProxyService" groupId="au.com.raa.poc.RestPocESB.proxy-service" version="1.0.0" type="synapse/proxy-service" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/proxy-services/CustomerRestJsonToXMLProxyService.xml</file>
+    </artifact>
+    <artifact name="fault" groupId="au.com.raa.poc.RestPocESB.sequence" version="1.0.0" type="synapse/sequence" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/sequences/fault.xml</file>
+    </artifact>
+    <artifact name="JsontoSoapPoc" groupId="au.com.raa.poc.RestPocESB.proxy-service" version="1.0.0" type="synapse/proxy-service" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/proxy-services/JsontoSoapPoc.xml</file>
+    </artifact>
+</artifacts>

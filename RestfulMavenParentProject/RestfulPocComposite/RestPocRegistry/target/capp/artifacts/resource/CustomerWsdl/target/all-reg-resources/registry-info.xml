@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?><resources>
+    <item>
+        <file>CustomerWsdl.wsdl</file>
+        <path>/_system/config/wsdls</path>
+        <mediaType>application/wsdl+xml</mediaType>
+    </item>
+</resources>

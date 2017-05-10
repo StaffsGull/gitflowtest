@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?><artifacts>
+    <artifact name="CustomerPoxToSoapDomain" groupId="au.com.raa.poc.domain.RestDomainPocESB.proxy-service" version="1.0.0" type="synapse/proxy-service" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/proxy-services/CustomerPoxToSoapDomain.xml</file>
+    </artifact>
+    <artifact name="faultXML" groupId="au.com.raa.poc.domain.RestDomainPocESB.sequence" version="1.0.0" type="synapse/sequence" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/sequences/faultXML.xml</file>
+    </artifact>
+    <artifact name="ExternalEndpoint" groupId="au.com.raa.poc.domain.RestDomainPocESB.endpoint" version="1.0.0" type="synapse/endpoint" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/endpoints/ExternalEndpoint.xml</file>
+    </artifact>
+</artifacts>
